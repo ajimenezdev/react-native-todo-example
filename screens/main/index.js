@@ -5,7 +5,10 @@ class TodoList extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Hola Mundo!</Text>
+        <Text selectable>Todo List App</Text>
+        <Text>Tarea 1</Text>
+        <Text>Tarea 2</Text>
+        <Text>Tarea multiples {"\n"} lineas</Text>
       </View>
     );
   }

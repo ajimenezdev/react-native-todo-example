@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-class TodoList extends Component {
+class MainScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TodoList;
+export default MainScreen;

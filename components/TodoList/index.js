@@ -3,7 +3,9 @@ import { Text, View } from "react-native";
 
 const TaskList = ({ todos }) => (
   <Fragment>
-    {todos.map(todo => !todo.done && <Text>- {todo.text}</Text>)}
+    {todos.map(
+      todo => !todo.done && <Text key={todo.text}>- {todo.text}</Text>
+    )}
   </Fragment>
 );
 

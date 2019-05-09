@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const tasks = [
+const todos = [
   {
     text: "Tarea 1",
     done: false
@@ -29,7 +29,7 @@ class MainScreen extends Component {
     return (
       <View style={styles.container}>
         <Text selectable>Todo List App</Text>
-        {tasks.map(task => !task.done && <Text>{task.text}</Text>)}
+        {todos.map(todo => !todo.done && <Text>{todo.text}</Text>)}
       </View>
     );
   }

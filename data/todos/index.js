@@ -1,7 +1,7 @@
 const getTodos = () => [
   {
     text: "Test",
-    done: false
+    done: true
   },
   {
     text: "Tarea 1",

@@ -3,6 +3,19 @@ import { StyleSheet, Text, View } from "react-native";
 import TodoList from "todoList/components/TodoList";
 import { getTodos } from "todoList/data/todos";
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 20
+  }
+});
+
 class MainScreen extends Component {
   constructor(props) {
     super(props);
@@ -21,20 +34,11 @@ class MainScreen extends Component {
     const { todos } = this.state;
     return (
       <View style={styles.container}>
-        <Text selectable>Todo List App</Text>
+        <Text style={styles.title}>Todo List App</Text>
         <TodoList todos={todos} />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
 
 export default MainScreen;

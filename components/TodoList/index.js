@@ -5,10 +5,13 @@ const styles = StyleSheet.create({
   listItem: {
     borderWidth: 1,
     margin: 5,
-    width: "80%"
+    padding: 5,
+    width: "80%",
+    flexDirection: "row",
+    alignItems: "center"
   },
   text: {
-    padding: 5,
+    marginLeft: 5,
     fontWeight: "bold"
   },
   textDone: {
@@ -22,8 +25,9 @@ const TaskList = ({ todos }) => (
   <Fragment>
     {todos.map(todo => (
       <View key={todo.text} style={styles.listItem}>
+        <Text>-</Text>
         <Text style={[styles.text, todo.done && styles.textDone]}>
-          - {todo.text}
+          {todo.text}
         </Text>
       </View>
     ))}

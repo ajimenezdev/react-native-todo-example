@@ -29,7 +29,9 @@ class MainScreen extends Component {
     return (
       <View style={styles.container}>
         <Text selectable>Todo List App</Text>
-        {todos.map(todo => !todo.done && <Text>{todo.text}</Text>)}
+        {todos.map(
+          todo => !todo.done && <Text key={todo.text}>{todo.text}</Text>
+        )}
       </View>
     );
   }

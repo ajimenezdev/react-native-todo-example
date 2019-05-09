@@ -4,8 +4,21 @@ import TodoList from "todoList/components/TodoList";
 import { getTodos } from "todoList/data/todos";
 
 class MainScreen extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      todos: []
+    };
+  }
+
+  componentDidMount = () => {
     const todos = getTodos();
+    this.setState({ todos });
+  };
+
+  render() {
+    const { todos } = this.state;
     return (
       <View style={styles.container}>
         <Text selectable>Todo List App</Text>

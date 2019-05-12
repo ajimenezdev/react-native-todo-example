@@ -5,7 +5,8 @@ import {
   View,
   TouchableOpacity,
   SectionList,
-  Image
+  Image,
+  Alert
 } from "react-native";
 import deleteImage from "todoList/assets/delete.png";
 
@@ -87,7 +88,10 @@ const TaskList = ({ todos, onUpdate, onDelete }) => {
       <Text style={[styles.text, todo.done && styles.textDone]}>
         {todo.text}
       </Text>
-      <TouchableOpacity style={styles.delete} onPress={() => onDelete(todo)}>
+      <TouchableOpacity
+        style={styles.delete}
+        onPress={() => handleDelete(todo)}
+      >
         {/* <Text style={styles.deleteText}>X</Text> */}
         <Image style={styles.icon} source={deleteImage} />
       </TouchableOpacity>
@@ -126,6 +130,16 @@ const TaskList = ({ todos, onUpdate, onDelete }) => {
       ];
     }
     return [];
+  };
+
+  handleDelete = todo => {
+    Alert.alert("Quieres eliminar la tarea?", todo.text, [
+      {
+        text: "Cancelar",
+        style: "cancel"
+      },
+      { text: "OK", onPress: () => onDelete(todo) }
+    ]);
   };
 
   return (

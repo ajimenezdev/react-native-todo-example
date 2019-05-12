@@ -9,6 +9,7 @@ import {
 import TodoList from "todoList/components/TodoList";
 import { getTodos, addTodo, updateTodo, deleteTodo } from "todoList/data/todos";
 import AddTodo from "todoList/screens/addTodo";
+import FAB from "todoList/components/FAB";
 
 const styles = StyleSheet.create({
   container: {
@@ -88,6 +89,12 @@ class MainScreen extends Component {
           visible={addModalVisible}
           onCloseModal={this.toggleModal}
           onAddTodo={this.handleAdd}
+        />
+        <FAB
+          text="+"
+          fabStyle={{ backgroundColor: "#0066ff" }}
+          textStyle={{ color: "#fff" }}
+          onPress={this.toggleModal}
         />
       </View>
     );

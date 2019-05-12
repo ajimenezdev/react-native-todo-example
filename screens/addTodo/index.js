@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Button
+  Button,
+  Picker
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -49,6 +50,8 @@ const initialState = {
   description: "",
   priority: 2
 };
+
+const priorities = ["Urgente", "Importante", "Normal", "No Importante"];
 
 class AddTodoModal extends Component {
   constructor(props) {
@@ -97,6 +100,17 @@ class AddTodoModal extends Component {
                 onChangeText={description => this.setState({ description })}
                 clearButtonMode="always"
               />
+            </View>
+            <View style={styles.block}>
+              <Text>Prioridad</Text>
+              <Picker
+                selectedValue={priority}
+                onValueChange={itemValue => this.setState({ priority })}
+              >
+                {priorities.map((item, idx) => (
+                  <Picker.Item label={item} value={idx} />
+                ))}
+              </Picker>
             </View>
             <View style={styles.buttonRow}>
               <Button title="Cerrar" onPress={onCloseModal} color="#ff0000" />

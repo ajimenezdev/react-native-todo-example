@@ -3,12 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Button,
   ActivityIndicator
 } from "react-native";
 import TodoList from "todoList/components/TodoList";
 import { getTodos, addTodo, updateTodo, deleteTodo } from "todoList/data/todos";
+import AddTodo from "todoList/screens/addTodo";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,15 +22,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20
   },
-  addRow: {
-    flexDirection: "row",
-    width: "80%"
-  },
-  text: {
-    flex: 1,
-    borderBottomWidth: 1,
-    padding: 5
-  },
   loading: {
     flex: 1
   }
@@ -42,8 +33,8 @@ class MainScreen extends Component {
 
     this.state = {
       todos: [],
-      newTodo: null,
-      loading: true
+      loading: true,
+      addModalVisible: false
     };
   }
 
@@ -52,10 +43,10 @@ class MainScreen extends Component {
     this.setState({ todos, loading: false });
   };
 
-  handleAdd = () => {
-    const { todos, newTodo } = this.state;
-    const newList = addTodo(todos, { text: newTodo });
-    this.setState({ todos: newList, newTodo: null });
+  handleAdd = todo => {
+    const { todos } = this.state;
+    const newList = addTodo(todos, todo);
+    this.setState({ todos: newList });
   };
 
   handleUpdate = todo => {
@@ -70,25 +61,15 @@ class MainScreen extends Component {
     this.setState({ todos: newList });
   };
 
+  toggleModal = () => {
+    this.setState({ addModalVisible: !this.state.addModalVisible });
+  };
+
   render() {
-    const { todos, newTodo, loading } = this.state;
+    const { todos, loading, addModalVisible } = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Todo List App</Text>
-        <View style={styles.addRow}>
-          <TextInput
-            style={styles.text}
-            placeholder="Nuevo TODO"
-            value={newTodo}
-            onChangeText={todo => this.setState({ newTodo: todo })}
-            autoCapitalize="words"
-            clearButtonMode="always"
-            returnKeyType="done"
-            selectionColor="#FF5722"
-            onSubmitEditing={this.handleAdd}
-          />
-          <Button title="Añadir" onPress={this.handleAdd} disabled={!newTodo} />
-        </View>
         {loading && (
           <ActivityIndicator
             style={styles.loading}
@@ -103,6 +84,11 @@ class MainScreen extends Component {
             onDelete={this.handleDelete}
           />
         )}
+        <AddTodo
+          visible={addModalVisible}
+          onCloseModal={this.toggleModal}
+          onAddTodo={this.handleAdd}
+        />
       </View>
     );
   }

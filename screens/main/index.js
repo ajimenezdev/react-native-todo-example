@@ -16,12 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "flex-start",
-    marginTop: 40
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20
+    justifyContent: "flex-start"
   },
   loading: {
     flex: 1
@@ -29,6 +24,10 @@ const styles = StyleSheet.create({
 });
 
 class MainScreen extends Component {
+  static navigationOptions = {
+    title: "ToDo List App"
+  };
+
   constructor(props) {
     super(props);
 
@@ -70,7 +69,6 @@ class MainScreen extends Component {
     const { todos, loading, addModalVisible } = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Todo List App</Text>
         {loading && (
           <ActivityIndicator
             style={styles.loading}

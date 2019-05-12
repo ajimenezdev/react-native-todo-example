@@ -34,9 +34,8 @@ const getTodos = async () => {
 
 const newTodo = todo => ({
   id: uuid(),
-  text: todo.text,
-  createdAt: new Date(),
-  done: todo.done
+  ...todo,
+  createdAt: new Date()
 });
 
 const updateTodo = (list, todo) => {

@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const TaskList = ({ todos, onUpdate, onDelete }) => {
+const TaskList = ({ todos, onUpdate, onDelete, onEdit }) => {
   renderSeparator = () => {
     return (
       <View
@@ -81,10 +81,7 @@ const TaskList = ({ todos, onUpdate, onDelete }) => {
   };
 
   renderItem = todo => (
-    <TouchableOpacity
-      style={styles.listItem}
-      onPress={() => onUpdate({ ...todo, done: !todo.done })}
-    >
+    <TouchableOpacity style={styles.listItem} onPress={() => onEdit(todo)}>
       <View style={styles.bullet}>
         <CheckBox
           checkedCheckBoxColor="#aaa"

@@ -9,6 +9,7 @@ import {
   Button,
   Picker
 } from "react-native";
+import BasicAddItems from "todoList/components/BasicAddItems";
 
 const styles = StyleSheet.create({
   container: {
@@ -51,8 +52,6 @@ const initialState = {
   priority: 2
 };
 
-const priorities = ["Urgente", "Importante", "Normal", "No Importante"];
-
 class AddTodoModal extends Component {
   constructor(props) {
     super(props);
@@ -83,35 +82,12 @@ class AddTodoModal extends Component {
       >
         <View style={styles.container}>
           <View style={styles.content}>
-            <View style={styles.block}>
-              <Text>Titulo</Text>
-              <TextInput
-                style={styles.text}
-                value={text}
-                onChangeText={text => this.setState({ text })}
-                clearButtonMode="always"
-              />
-            </View>
-            <View style={styles.block}>
-              <Text>Descripcion</Text>
-              <TextInput
-                style={styles.text}
-                value={description}
-                onChangeText={description => this.setState({ description })}
-                clearButtonMode="always"
-              />
-            </View>
-            <View style={styles.block}>
-              <Text>Prioridad</Text>
-              <Picker
-                selectedValue={priority}
-                onValueChange={itemValue => this.setState({ priority })}
-              >
-                {priorities.map((item, idx) => (
-                  <Picker.Item label={item} value={idx} />
-                ))}
-              </Picker>
-            </View>
+            <BasicAddItems
+              text={text}
+              description={description}
+              priority={priority}
+              onChange={newState => this.setState(newState)}
+            />
             <View style={styles.buttonRow}>
               <Button title="Cerrar" onPress={onCloseModal} color="#ff0000" />
               <Button title="Añadir" onPress={this.addTodo} />

@@ -4,8 +4,10 @@ import {
   Text,
   View,
   TouchableOpacity,
-  SectionList
+  SectionList,
+  Image
 } from "react-native";
+import deleteImage from "todoList/assets/delete.png";
 
 const styles = StyleSheet.create({
   container: {
@@ -49,9 +51,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  emptyImage: {
+    tintColor: "#005500"
+  },
   sectionHeader: {
     backgroundColor: "#ddd",
     padding: 10
+  },
+  icon: {
+    width: 20,
+    height: 20
   }
 });
 
@@ -79,14 +88,19 @@ const TaskList = ({ todos, onUpdate, onDelete }) => {
         {todo.text}
       </Text>
       <TouchableOpacity style={styles.delete} onPress={() => onDelete(todo)}>
-        <Text style={styles.deleteText}>X</Text>
+        {/* <Text style={styles.deleteText}>X</Text> */}
+        <Image style={styles.icon} source={deleteImage} />
       </TouchableOpacity>
     </TouchableOpacity>
   );
 
   renderEmptyComponent = () => (
     <View style={styles.emptyList}>
-      <Text>Lista Vacia</Text>
+      <Image
+        style={styles.emptyImage}
+        source={require("todoList/assets/check.png")}
+      />
+      <Text>Tareas terminadas</Text>
     </View>
   );
 
@@ -98,14 +112,27 @@ const TaskList = ({ todos, onUpdate, onDelete }) => {
     </View>
   );
 
+  getSections = () => {
+    if (todos.length) {
+      return [
+        {
+          title: "ToDo",
+          data: todos.filter(todo => !todo.done)
+        },
+        {
+          title: "Terminadas",
+          data: todos.filter(todo => todo.done)
+        }
+      ];
+    }
+    return [];
+  };
+
   return (
     <SectionList
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
-      sections={[
-        { title: "ToDo", data: todos.filter(todo => !todo.done) },
-        { title: "Terminadas", data: todos.filter(todo => todo.done) }
-      ]}
+      sections={getSections()}
       keyExtractor={todo => todo.id}
       renderItem={({ item }) => renderItem(item)}
       renderSectionHeader={renderSectionHeader}

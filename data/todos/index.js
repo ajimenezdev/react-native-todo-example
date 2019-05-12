@@ -1,31 +1,36 @@
 import uuid from "uuid/v1";
 
-const getTodos = () => [
-  newTodo({
-    text: "Test",
-    done: true
-  }),
-  newTodo({
-    text: "Tarea 1",
-    done: false
-  }),
-  newTodo({
-    text: "Tarea 2",
-    done: false
-  }),
-  newTodo({
-    text: "Tarea 3",
-    done: false
-  }),
-  newTodo({
-    text: "Tarea 4",
-    done: false
-  }),
-  newTodo({
-    text: "Nueva",
-    done: false
-  })
-];
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+const getTodos = async () => {
+  await delay(1000);
+  return [
+    newTodo({
+      text: "Test",
+      done: true
+    }),
+    newTodo({
+      text: "Tarea 1",
+      done: false
+    }),
+    newTodo({
+      text: "Tarea 2",
+      done: false
+    }),
+    newTodo({
+      text: "Tarea 3",
+      done: false
+    }),
+    newTodo({
+      text: "Tarea 4",
+      done: false
+    }),
+    newTodo({
+      text: "Nueva",
+      done: false
+    })
+  ];
+};
 
 const newTodo = todo => ({
   id: uuid(),

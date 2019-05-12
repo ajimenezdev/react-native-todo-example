@@ -113,7 +113,7 @@ const TaskList = ({ todos, onUpdate, onDelete }) => {
   );
 
   getSections = () => {
-    if (todos.length) {
+    if (todos && todos.length) {
       return [
         {
           title: "ToDo",

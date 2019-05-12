@@ -8,6 +8,7 @@ import {
   Image,
   Alert
 } from "react-native";
+import CheckBox from "react-native-check-box";
 import deleteImage from "todoList/assets/delete.png";
 
 const styles = StyleSheet.create({
@@ -84,7 +85,15 @@ const TaskList = ({ todos, onUpdate, onDelete }) => {
       style={styles.listItem}
       onPress={() => onUpdate({ ...todo, done: !todo.done })}
     >
-      <Text style={styles.bullet}>-</Text>
+      <View style={styles.bullet}>
+        <CheckBox
+          checkedCheckBoxColor="#aaa"
+          onClick={() => {
+            onUpdate({ ...todo, done: !todo.done });
+          }}
+          isChecked={todo.done}
+        />
+      </View>
       <Text style={[styles.text, todo.done && styles.textDone]}>
         {todo.text}
       </Text>

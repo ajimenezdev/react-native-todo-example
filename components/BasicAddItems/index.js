@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
   },
   block: {
     margin: 10
+  },
+  textArea: {
+    height: 80
   }
 });
 
@@ -61,9 +64,11 @@ const BasicAddItems = ({ text, description, priority, onChange }) => (
     <View style={styles.block}>
       <Text>Descripcion</Text>
       <TextInput
-        style={styles.text}
+        style={[styles.text, styles.textArea]}
         value={description}
         onChangeText={description => onChange({ description })}
+        numberOfLines={4}
+        multiline={true}
         clearButtonMode="always"
       />
     </View>

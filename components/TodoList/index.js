@@ -4,7 +4,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  FlatList
+  SectionList
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -48,6 +48,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
+  },
+  sectionHeader: {
+    backgroundColor: "#ddd",
+    padding: 10
   }
 });
 
@@ -86,15 +90,28 @@ const TaskList = ({ todos, onUpdate, onDelete }) => {
     </View>
   );
 
+  renderSectionHeader = ({ section: { title, data } }) => (
+    <View style={styles.sectionHeader}>
+      <Text>
+        {title} ({data.length})
+      </Text>
+    </View>
+  );
+
   return (
-    <FlatList
+    <SectionList
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
-      data={todos}
+      sections={[
+        { title: "ToDo", data: todos.filter(todo => !todo.done) },
+        { title: "Terminadas", data: todos.filter(todo => todo.done) }
+      ]}
       keyExtractor={todo => todo.id}
       renderItem={({ item }) => renderItem(item)}
+      renderSectionHeader={renderSectionHeader}
       ItemSeparatorComponent={renderSeparator}
       ListEmptyComponent={renderEmptyComponent}
+      stickySectionHeadersEnabled={true}
     />
   );
 };

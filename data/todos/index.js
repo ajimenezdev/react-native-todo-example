@@ -1,41 +1,17 @@
 import uuid from "uuid/v1";
+import { AsyncStorage } from "react-native";
 
-const delay = ms => new Promise(res => setTimeout(res, ms));
+const TODOS_KEY = "@MyStore:todos";
 
 const getTodos = async () => {
-  await delay(1000);
-  return [
-    newTodo({
-      text: "Test",
-      priority: 2,
-      done: true
-    }),
-    newTodo({
-      text: "Tarea 1",
-      priority: 2,
-      done: false
-    }),
-    newTodo({
-      text: "Tarea 2",
-      priority: 2,
-      done: false
-    }),
-    newTodo({
-      text: "Tarea 3",
-      priority: 2,
-      done: false
-    }),
-    newTodo({
-      text: "Tarea 4",
-      priority: 2,
-      done: false
-    }),
-    newTodo({
-      text: "Nueva",
-      priority: 2,
-      done: false
-    })
-  ];
+  let todos = [];
+  try {
+    todos = await AsyncStorage.getItem(TODOS_KEY);
+  } catch (error) {
+    // Error retrieving data
+    console.log(error.message);
+  }
+  return JSON.parse(todos);
 };
 
 const newTodo = todo => ({
@@ -48,11 +24,25 @@ const updateTodo = (list, todo) => {
   const updateIndex = list.findIndex(t => t.id === todo.id);
   const newTodoList = [...list];
   newTodoList[updateIndex] = todo;
+  saveTodos(newTodoList);
   return newTodoList;
 };
 
-const addTodo = (list, todo) => [...(list || []), newTodo(todo)];
+const addTodo = (list, todo) => {
+  const newTodoList = [...(list || []), newTodo(todo)];
+  saveTodos(newTodoList);
+  return newTodoList;
+};
 
 const deleteTodo = (list, todo) => list.filter(t => t.id !== todo.id);
+
+const saveTodos = async todos => {
+  try {
+    const resp = await AsyncStorage.setItem(TODOS_KEY, JSON.stringify(todos));
+  } catch (error) {
+    // Error retrieving data
+    console.log(error.message);
+  }
+};
 
 export { getTodos, addTodo, updateTodo, deleteTodo };

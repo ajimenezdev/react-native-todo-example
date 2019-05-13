@@ -4,7 +4,6 @@ import { Picker, Platform, ActionSheetIOS, View, Button } from "react-native";
 const priorities = ["Urgente", "Importante", "Normal", "No Importante"];
 
 const PriorityPicker = ({ priority, onChange }) => {
-  console.log("test:ppicker", { priority });
   showIosPicker = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {

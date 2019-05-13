@@ -65,8 +65,8 @@ class AddTodoModal extends Component {
 
   addTodo = () => {
     const { onAddTodo, onCloseModal } = this.props;
-    const { text, description } = this.state;
-    onAddTodo({ text, description });
+    const { text, description, priority } = this.state;
+    onAddTodo({ text, description, priority });
     // reset initialState for next Add
     this.setState(initialState);
     onCloseModal();

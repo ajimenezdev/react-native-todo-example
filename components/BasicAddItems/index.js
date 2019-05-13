@@ -9,6 +9,7 @@ import {
   Button,
   Picker
 } from "react-native";
+import PriorityPicker from "todoList/components/PriorityPicker";
 
 const styles = StyleSheet.create({
   container: {
@@ -74,14 +75,10 @@ const BasicAddItems = ({ text, description, priority, onChange }) => (
     </View>
     <View style={styles.block}>
       <Text>Prioridad</Text>
-      <Picker
-        selectedValue={priority}
-        onValueChange={priority => onChange({ priority })}
-      >
-        {priorities.map((item, idx) => (
-          <Picker.Item key={idx} label={item} value={idx} />
-        ))}
-      </Picker>
+      <PriorityPicker
+        priority={priority}
+        onChange={priority => onChange({ priority })}
+      />
     </View>
   </React.Fragment>
 );

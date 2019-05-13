@@ -7,26 +7,32 @@ const getTodos = async () => {
   return [
     newTodo({
       text: "Test",
+      priority: 2,
       done: true
     }),
     newTodo({
       text: "Tarea 1",
+      priority: 2,
       done: false
     }),
     newTodo({
       text: "Tarea 2",
+      priority: 2,
       done: false
     }),
     newTodo({
       text: "Tarea 3",
+      priority: 2,
       done: false
     }),
     newTodo({
       text: "Tarea 4",
+      priority: 2,
       done: false
     }),
     newTodo({
       text: "Nueva",
+      priority: 2,
       done: false
     })
   ];

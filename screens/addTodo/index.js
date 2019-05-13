@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   View,
   Button,
-  Picker
+  Picker,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import BasicAddItems from "todoList/components/BasicAddItems";
 
@@ -81,7 +83,10 @@ class AddTodoModal extends Component {
         onRequestClose={onCloseModal}
       >
         <View style={styles.container}>
-          <View style={styles.content}>
+          <KeyboardAvoidingView
+            style={styles.content}
+            behavior={Platform.OS === "ios" ? "padding" : null}
+          >
             <BasicAddItems
               text={text}
               description={description}
@@ -92,7 +97,7 @@ class AddTodoModal extends Component {
               <Button title="Cerrar" onPress={onCloseModal} color="#ff0000" />
               <Button title="Añadir" onPress={this.addTodo} />
             </View>
-          </View>
+          </KeyboardAvoidingView>
         </View>
       </Modal>
     );

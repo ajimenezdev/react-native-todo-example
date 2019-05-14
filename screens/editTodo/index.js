@@ -1,5 +1,16 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Button,
+  Linking,
+  Platform
+} from "react-native";
+import { ImagePicker, Location, Permissions } from "expo";
+import Lightbox from "react-native-lightbox";
 import saveImage from "todoList/assets/save.png";
 import BasicAddItems from "todoList/components/BasicAddItems";
 
@@ -9,6 +20,26 @@ const styles = StyleSheet.create({
     height: 20,
     tintColor: "#fff",
     marginRight: 20
+  },
+  blockRow: {
+    margin: 10,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  rowContent: {
+    flex: 3,
+    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+  imgContainer: {
+    height: 50,
+    width: 50
+  },
+  img: {
+    height: "100%",
+    width: "100%"
   }
 });
 
@@ -38,6 +69,19 @@ class EditTodo extends Component {
     this.props.navigation.setParams({
       updatedTodo: this.state.todo
     });
+
+    // leer estado actual de los permisos
+    const { status: cameraStatus } = await Permissions.getAsync(
+      Permissions.CAMERA_ROLL
+    );
+    const { status: locationStatus } = await Permissions.getAsync(
+      Permissions.LOCATION
+    );
+
+    this.setState({
+      hasCameraPermission: cameraStatus === "granted",
+      hasLocationPermission: locationStatus === "granted"
+    });
   };
 
   updateLocalTodo = property => {
@@ -48,9 +92,40 @@ class EditTodo extends Component {
     });
   };
 
+  getPicture = async () => {
+    // Solicitar permiso
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [1, 1]
+    });
+    if (!result.cancelled) {
+      this.updateLocalTodo({ img: result.uri });
+    }
+  };
+
+  getLocation = async () => {
+    await Location.requestPermissionsAsync();
+    const location = await Location.getCurrentPositionAsync({
+      enableHighAccuracy: true
+    });
+    const { longitude, latitude } = location.coords;
+    this.updateLocalTodo({ location: { longitude, latitude } });
+  };
+
+  openMap = location => {
+    const { longitude, latitude } = location;
+    Linking.openURL(
+      Platform.select({
+        ios: () => `http://maps.apple.com/?ll=${latitude},${longitude}`,
+        android: () => `geo:${latitude},${longitude}`
+      })()
+    );
+  };
+
   render() {
     const { todo } = this.state;
-    const { text, description, priority } = todo;
+    const { text, description, priority, img, location } = todo;
     return (
       <View>
         <BasicAddItems
@@ -59,6 +134,56 @@ class EditTodo extends Component {
           priority={priority}
           onChange={property => this.updateLocalTodo(property)}
         />
+        <View style={styles.blockRow}>
+          <Text style={styles.rowLabel}>Foto</Text>
+          {!img && (
+            <View style={styles.rowContent}>
+              <Button title="Añadir foto" onPress={this.getPicture} />
+            </View>
+          )}
+          {img && (
+            <View style={styles.rowContent}>
+              <View style={styles.imgContainer}>
+                <Lightbox>
+                  <Image
+                    style={styles.img}
+                    resizeMode="contain"
+                    source={{ uri: img }}
+                  />
+                </Lightbox>
+              </View>
+              <Button
+                title="Borrar"
+                onPress={() => this.updateLocalTodo({ img: null })}
+              />
+            </View>
+          )}
+        </View>
+        <View style={styles.blockRow}>
+          <Text style={styles.rowLabel}>Posicion</Text>
+          {!location && (
+            <View style={styles.rowContent}>
+              <Button
+                style={styles.rowContent}
+                title="Añadir Posicion"
+                onPress={this.getLocation}
+              />
+            </View>
+          )}
+          {location && (
+            <View style={styles.rowContent}>
+              <TouchableOpacity onPress={() => this.openMap(location)}>
+                <Text>
+                  [{location.latitude},{location.longitude}]
+                </Text>
+              </TouchableOpacity>
+              <Button
+                title="Borrar"
+                onPress={() => this.updateLocalTodo({ location: null })}
+              />
+            </View>
+          )}
+        </View>
       </View>
     );
   }

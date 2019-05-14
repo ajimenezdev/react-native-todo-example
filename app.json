@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "TodoList App",
+    "description": "Tutorial ReactNative OpenWebinars - ToDo List App",
     "slug": "TodoListApp",
     "privacy": "public",
     "sdkVersion": "32.0.0",

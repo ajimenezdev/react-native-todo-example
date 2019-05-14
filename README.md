@@ -2,7 +2,7 @@
 
 Este repositorio esta creado para servir como apoyo al tutorial ReactNative Básico de OpenWebinars (https://openwebinars.net/cursos/react/).
 
-Esta organizado en ramas para cada una de las lecciones del curso con el estado final de la aplicación segun ha sido mostrada en el vídeo de tu lección. Por lo tanto en esta rama, 'master', no encontraras nada de codigo.
+Esta organizado en ramas para cada una de las lecciones del curso con el estado final de la aplicación segun ha sido mostrada en el vídeo de tu lección. Por lo tanto en esta rama, 'State', no encontraras nada de codigo.
 
 Puedes ir a cada una de las ramas enlazadas en el siguiente indice, si estas siguiendo el curso y estas interesado en algun punto en concreto, o saltar directamente [aquí](https://github.com/ajimenezdev/react-native-todo-example/tree/VersionFinal), donde encontraras la versión final.
 

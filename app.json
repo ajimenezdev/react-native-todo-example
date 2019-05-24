@@ -33,6 +33,12 @@
       }
     },
     "ios": {
+      "bundleIdentifier": "com.ajimenez.react-native-todo",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Permite acceder a su posicion, para añadirla en la tarea",
+        "NSPhotoLibraryUsageDescription": "Permite acceder a tu biblioteca de imagenes para adjuntarla en las tareas"
+      },
       "supportsTablet": true
     }
   }

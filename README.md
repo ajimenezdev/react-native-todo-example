@@ -1,6 +1,6 @@
 # react-native-todo-example
 
-Este repositorio esta creado para servir como apoyo al tutorial ReactNative Básico de OpenWebinars (https://openwebinars.net/cursos/react/).
+Este repositorio esta creado para servir como apoyo al tutorial ReactNative Básico de OpenWebinars (https://openwebinars.net/academia/portada/react-native-principiantes/).
 
 Esta organizado en ramas para cada una de las lecciones del curso con el estado final de la aplicación segun ha sido mostrada en el vídeo de tu lección. Por lo tanto en esta rama, 'master', no encontraras nada de codigo.
 
